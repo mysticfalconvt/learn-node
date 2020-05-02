@@ -22,6 +22,7 @@ storeSchema.pre('save', function(next) {
 		return; //stop this from running
 	}
 	this.slug = slug(this.name);
+	next();
 });
 
 module.exports = mongoose.model('Store', storeSchema);
