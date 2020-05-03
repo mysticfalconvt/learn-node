@@ -79,6 +79,17 @@ Object.defineProperty(exports, "__esModule", {
 function autocomplete(input, latInput, lngInput) {
     if (!input) return;
     var dropdown = new google.maps.places.Autocomplete(input);
+
+    dropdown.addListener('place_changed', function () {
+        var place = dropdown.getPlace();
+        console.log(place);
+        lngInput.value = place.geometry.location.lng();
+        latInput.value = place.geometry.location.lat();
+    });
+    // if someone hits enter on the address form font submit
+    input.on('keydown', function (e) {
+        if (e.keyCode === 13) e.preventDefault();
+    });
 }
 
 exports.default = autocomplete;
