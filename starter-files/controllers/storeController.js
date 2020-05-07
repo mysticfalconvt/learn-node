@@ -28,11 +28,18 @@ exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
 	if (!req.file) {
-		console.log(req.file)
+		
 		next(); //skip to next middleware
 		return;
 	} ;
-	console.log(req.file);
+	const extension = req.file.mimetype.split('/')[1];
+	req.body.photo = `${uuid.v4()}.${extension}`;
+	// now we resize
+	const photo = await jimp.read(req.file.buffer);
+	await photo.resize(800, jimp.AUTO);
+	await photo.write(`./public/uploads/${req.body.photo}`);
+	//once we have written the photo to file system keep going
+	next();
 };
 
 exports.createStore = async (req, res) => {
@@ -69,3 +76,19 @@ exports.updateStore = async (req, res) => {
 	req.flash('success', `Sucessfully Updated <strong>${store.name}</strong>. <a href="/stores/${store.slug}">View Store</a>`);
 	res.redirect(`/stores/${store.id}/edit`);
 };
+
+exports.getStoreBySlug = async (req,res, next) => {
+	const store = await Store.findOne({ slug: req.params.slug});
+	if(!store) return next();
+	res.render('store', {store, title: store.name});
+};
+
+exports.getStoresByTag = async (req,res) => {
+	const tag = req.params.tag;
+	const tagQuerey = tag || { $exists: true}
+	const tagsPromise = Store.getTagsList();
+	const storesPromise = Store.find({tags: tagQuerey});
+	const [tags, stores] = await Promise.all([tagsPromise, storesPromise])
+	
+	res.render('tag', { tags, title: 'Tags', tag, stores});
+}
