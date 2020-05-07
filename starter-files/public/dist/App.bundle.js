@@ -68,30 +68,10 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-function autocomplete(input, latInput, lngInput) {
-    if (!input) return;
-    var dropdown = new google.maps.places.Autocomplete(input);
-
-    dropdown.addListener('place_changed', function () {
-        var place = dropdown.getPlace();
-        lngInput.value = place.geometry.location.lng();
-        latInput.value = place.geometry.location.lat();
-    });
-    // if someone hits enter on the address form font submit
-    input.on('keydown', function (e) {
-        if (e.keyCode === 13) e.preventDefault();
-    });
-}
-
-exports.default = autocomplete;
+throw new Error("Module build failed: SyntaxError: C:/Users/rbosk/OneDrive/Desktop/Code/WebDev/LearnNode/starter-files/public/javascripts/modules/autocomplete.js: Unexpected token (7:0)\n\n\u001b[0m \u001b[90m  5 | \u001b[39m    dropdown\u001b[33m.\u001b[39maddListener(\u001b[32m'place_changed'\u001b[39m\u001b[33m,\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m  6 | \u001b[39m        \u001b[36mconst\u001b[39m place \u001b[33m=\u001b[39m dropdown\u001b[33m.\u001b[39mgetPlace()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  7 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  8 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\n \u001b[90m  9 | \u001b[39m        console\u001b[33m.\u001b[39mlog(place)\u001b[33m;\u001b[39m\n \u001b[90m 10 | \u001b[39m\u001b[33m>>>\u001b[39m\u001b[33m>>>\u001b[39m\u001b[33m>\u001b[39m b6ca597af4c5313c3988fad972e352d6085e54e3\u001b[0m\n");
 
 /***/ }),
 /* 1 */
